@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="/" />
+
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta name="description" content="Goodday, My name is Kelly daniel. I'm a web developer and a software engineer, I make cross-platform app with the help of FLutter.">
+
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="myportfolio" />
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <title>myportfolio</title>
+    <link rel="manifest" href="manifest.json" />
+
+    <script>
+      // The value below is injected by flutter build, do not touch.
+      var serviceWorkerVersion = "4187812452";
+    </script>
+    <!-- This script adds the flutter initialization JS code -->
+    <script src="flutter.js" defer></script>
+  </head>
+  <body>
+    <div class="loading" id="loading">
+      <style>
+        body {
+          inset: 0;
+          overflow: hidden;
+          margin: 0;
+          padding: 0;
+          position: fixed;
+          /* background: #121212; */
+        }
+
+        #loading {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+        }
+
+        #loading .circle {
+          width: 10vw;
+          height: 10vw;
+          overflow: hidden;
+          border-radius: 50%;
+          font-family: Arial;
+          font-weight: 600;
+          color: #000;
+          animation: 1s ease-in-out 0s infinite alternate breathe;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        #loading .circle img{
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        #loading.main_done .circle {
+          opacity: 1;
+        }
+
+        #loading.init_done .circle {
+          animation: 0.33s ease-in-out 0s 1 forwards zoooom;
+        }
+
+        @keyframes breathe {
+          from {
+            transform: scale(1);
+          }
+
+          to {
+            transform: scale(0.95);
+          }
+        }
+
+        @keyframes zoooom {
+          from {
+            transform: scale(1);
+          }
+
+          to {
+            transform: scale(10);
+          }
+        }
+      </style>
+      <!-- <h1>Loading</h1> -->
+      <div class="circle">
+        <img src="icons/Icon-512.png" alt="" />
+      </div>
+    </div>
+    <script>
+      window.addEventListener("load", function (ev) {
+        // Download main.dart.js
+
+        let loading = document.querySelector("#loading");
+        _flutter.loader.loadEntrypoint({
+          serviceWorker: {
+            serviceWorkerVersion: serviceWorkerVersion,
+          },
+          onEntrypointLoaded: function (engineInitializer) {
+            loading.classList.add("main_done");
+            engineInitializer
+              .initializeEngine()
+              .then(function (appRunner) {
+                loading.classList.add("init_done");
+                appRunner.runApp();
+              })
+              .then(function (app) {
+                window.setTimeout(function () {
+                  loading.remove();
+                }, 200);
+              });
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
